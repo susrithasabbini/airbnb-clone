@@ -19,15 +19,6 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ center }) => {
-  const MapIcon = L.icon({
-    iconUrl: markerIcon.src,
-    iconRetinaUrl: markerIcon2x.src,
-    shadowUrl: markerShadow.src,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-  });
   return (
     <MapContainer
       center={(center as L.LatLngExpression) || [51, -0.09]}
@@ -40,9 +31,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {center && (
-        <Marker position={center as L.LatLngExpression} icon={MapIcon} />
-      )}
+      {center && <Marker position={center as L.LatLngExpression} />}
     </MapContainer>
   );
 };
