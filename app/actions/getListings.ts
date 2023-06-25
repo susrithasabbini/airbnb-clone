@@ -35,7 +35,7 @@ export default async function getListings(params: IListingsParams) {
 
     if (roomCount) {
       query.roomCount = {
-        gte: +roomCount, //+ converts to number
+        gte: +roomCount,
       };
     }
 
@@ -52,20 +52,18 @@ export default async function getListings(params: IListingsParams) {
     }
 
     if (startDate && endDate) {
-      query.NOT = {
-        reservations: {
-          some: {
-            OR: [
-              {
-                endDate: { gte: startDate },
-                startDate: { lte: startDate },
-              },
-              {
-                startDate: { lte: endDate },
-                endDate: { gte: endDate },
-              },
-            ],
-          },
+      query.reservations = {
+        none: {
+          OR: [
+            {
+              endDate: { gte: startDate },
+              startDate: { lte: startDate },
+            },
+            {
+              startDate: { lte: endDate },
+              endDate: { gte: endDate },
+            },
+          ],
         },
       };
     }
